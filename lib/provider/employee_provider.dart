@@ -11,18 +11,20 @@ class EmployeeProvider extends ChangeNotifier{
    List<Employee>searchResult=[];
 
 
+
    setCurrentEmployee(Employee employee){
      currentEmployee=employee;
    }
-   getEmployee() async {
+   Future<List<Employee>>getEmployee() async {
+     employeeList.clear();
 
     String uri = 'https://run.mocky.io/v3/bdcdffd7-df4c-4645-8290-d451ea6fe98a';
     var response = await http.get(Uri.parse(uri));
     print("usedCarsResponse" + response.body.toString());
     if (response.statusCode == 200) {
       final items = json.decode(response.body);
-      List<Employee> emp=(items as List).map((li) => Employee.fromJson(li)).toList();
-      return emp;
+      return (items as List).map((li) => Employee.fromJson(li)).toList();
+
 
     } else {
       print("exception" + response.body.toString());
@@ -44,7 +46,7 @@ class EmployeeProvider extends ChangeNotifier{
 
 
 }
-class EnrollStatus {
+class Status {
   static const int IDLE = 0;
   static const int LOADING = 1;
   static const int LOADED = 2;

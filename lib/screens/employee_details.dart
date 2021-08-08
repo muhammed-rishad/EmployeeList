@@ -30,4 +30,7 @@ class EmployeeDetails extends StatelessWidget {
       ),
     );
   }
+
+
 }
+
